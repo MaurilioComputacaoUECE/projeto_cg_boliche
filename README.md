@@ -7,25 +7,28 @@
 Jogo de boliche 2D onde toda a renderização foi feita manualmente usando `set_pixel`, implementando algoritmos clássicos de Computação Gráfica (Bresenham, scanline, flood fill, Cohen-Sutherland, etc).
 
 ## Estrutura do Projeto
+
+```bash
 Boliche/
-├── main.py # Loop principal
-├── pixel.py # Motor gráfico (set_pixel, linha, círculo, scanline, flood fill etc...)
-├── cor.py # Cores predefinidas
-├── input.py # Mouse e teclado
-├── vetor.py # Classe Vec2
-├── matriz.py # Classe Mat3
-├── transformacoes.py # Matrizes de transformação (translação, rotação, escala)
-├── clip.py # Cohen-Sutherland (clipping)
-├── bola.py # Física e desenho da bola
-├── pino.py # Física e desenho dos pinos
-├── desenho.py # Cenário (pista, valas, tijolos, viewport)
-├── menu.py # Interface do menu
-├── menu_handler.py # Navegação do menu
-├── jogo.py # Lógica principal (rounds, pontuação, colisões)
-├── requirements.txt # Dependências
-├── README.md # Este arquivo
-└── imagem_textura/ # Pasta com a textura do quadro decorativo
+├── main.py                # Loop principal
+├── pixel.py               # Motor gráfico (set_pixel, linha, círculo, etc.)
+├── cor.py                 # Cores predefinidas
+├── input.py               # Mouse e teclado
+├── vetor.py               # Classe Vec2
+├── matriz.py              # Classe Mat3
+├── transformacoes.py      # Matrizes de transformação
+├── clip.py                # Cohen-Sutherland (clipping)
+├── bola.py                # Física e desenho da bola
+├── pino.py                # Física e desenho dos pinos
+├── desenho.py             # Cenário (pista, viewport, etc.)
+├── menu.py                # Interface do menu
+├── menu_handler.py        # Navegação do menu
+├── jogo.py                # Lógica principal
+├── requirements.txt       # Dependências
+├── README.md              # Este arquivo
+└── imagem_textura/
     └── Layout.jpg
+```
 
 
 ## 🎮 Física do Jogo
