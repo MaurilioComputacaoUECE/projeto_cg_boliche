@@ -101,8 +101,7 @@ class Menu:
         self.g.tela.blit(subtitulo, (self.largura//2 - 100, 160))
         
         # Linha separadora (uso do algoritmo de linha)
-        for x in range(100, self.largura - 100):
-            self.g.set_pixel(x, 150, AMARELO)
+        self.g.linha(100,150,self.largura - 100, 150, AMARELO)
         
         # Lista de instruções
         instrucoes = [

@@ -65,20 +65,28 @@ class Pixel:
         
         dx = abs(x2 - x1)
         dy = abs(y2 - y1)
+
+        # Direção do incremento em cada eixo
         sx = 1 if x1 < x2 else -1
         sy = 1 if y1 < y2 else -1
+
+        # Variável de decisão: controla quando mudar de eixo
         erro = dx - dy
         
         x, y = x1, y1
         
         while True:
             self.set_pixel(x, y, cor)
+            # Condição de parada (chegou no destino)
             if x == x2 and y == y2:
                 break
+            # Avalia o erro dobrado para decidir movimento
             e2 = 2 * erro
+            # Move no eixo x se o erro permitir
             if e2 > -dy:
                 erro -= dy
                 x += sx
+            # Move no eixo y se o erro permitir
             if e2 < dx:
                 erro += dx
                 y += sy
@@ -90,6 +98,8 @@ class Pixel:
         """
         x = 0
         y = raio
+
+        # Variável de decisão (define quando reduzir y)
         d = 1 - raio
         
         while x <= y:
@@ -103,9 +113,12 @@ class Pixel:
             self.set_pixel(cx + y, cy - x, cor)
             self.set_pixel(cx - y, cy - x, cor)
             
+            # Decide se o próximo passo mantém y ou decrementa
             if d < 0:
+                # Movimento horizontal
                 d = d + 2 * x + 3
             else:
+                # Movimento diagonal (x e y)
                 d = d + 2 * (x - y) + 5
                 y -= 1
             x += 1
@@ -125,10 +138,11 @@ class Pixel:
         ry2 = ry * ry
         tworx2 = 2 * rx2
         twory2 = 2 * ry2
-        
+
+        # Variável de decisão inicial (região 1)
         p = int(ry2 - (rx2 * ry) + (0.25 * rx2))
         
-        # Região 1
+        # ===== Região 1 (inclinação < 1 → anda mais em x) =====
         while twory2 * x <= tworx2 * y:
             self.set_pixel(cx + x, cy + y, cor)
             self.set_pixel(cx - x, cy + y, cor)
@@ -136,9 +150,12 @@ class Pixel:
             self.set_pixel(cx - x, cy - y, cor)
             
             x += 1
+            # Decide se mantém y ou decrementa
             if p < 0:
+                # Movimento horizontal
                 p += ry2 + twory2 * (x - 1)
             else:
+                # Movimento diagonal
                 y -= 1
                 p += ry2 + twory2 * (x - 1) - tworx2 * y
         
@@ -151,9 +168,12 @@ class Pixel:
             self.set_pixel(cx - x, cy - y, cor)
             
             y -= 1
+            # Decide se mantém x ou incrementa
             if p > 0:
+                # Movimento vertical
                 p += -tworx2 * y + rx2
             else:
+                # Movimento diagonal
                 x += 1
                 p += twory2 * x - tworx2 * y + rx2
     
@@ -203,18 +223,24 @@ class Pixel:
         if len(vertices) < 3:
             return
         
+        # Descobre os limites verticais do polígono
         y_min = min(v[1] for v in vertices)
         y_max = max(v[1] for v in vertices)
         
+        #  Varre cada linha horizontal (scanline)
         for y in range(y_min, y_max + 1):
+            # Lista onde a linha atual cruza o polígono
             interseccoes = []
             
+            # Percorre cada aresta do polígono
             for i in range(len(vertices)):
                 x1, y1 = vertices[i]
-                x2, y2 = vertices[(i + 1) % len(vertices)]
-                
+                x2, y2 = vertices[(i + 1) % len(vertices)] # fecha o polígono
+
+                 #  Verifica se a linha y cruza essa aresta            
                 if (y1 <= y < y2) or (y2 <= y < y1):
                     if y2 != y1:
+                        # calcula o ponto X onde a aresta cruza a linha Y
                         x = x1 + (y - y1) * (x2 - x1) / (y2 - y1)
                         interseccoes.append(x)
             
